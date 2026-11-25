@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greg's Toy Stash</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Fredoka:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --navy:#1E2A4A; --red:#D93A2F; --yellow:#F6B93B; --teal:#1F8F8A;
+    --paper:#FFFFFF; --soft:#F3F5F9; --ink:#1E2A4A; --muted:#4A5675;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Fredoka',system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:18px;line-height:1.55}
+  a{color:var(--red)}
+  a:hover{color:#B32C23}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .display{font-family:'Bowlby One',sans-serif;font-weight:400;letter-spacing:.5px}
+  .ph{background:#FFF1C9;border:1px dashed #C98A00;border-radius:6px;padding:0 6px;color:#6B4A00;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .wrap>*{min-width:0}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-bottom:1px solid #E3E7EF}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy)}
+  .brand span{font-family:'Bowlby One',sans-serif;font-size:20px;line-height:1}
+  .nav-links{display:flex;gap:8px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:12px;font-weight:600;font-size:17px;text-decoration:none;border:3px solid transparent;transition:transform .12s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{color:#fff}
+  .btn-yellow{background:var(--yellow);color:var(--navy)}
+  .btn-yellow:hover{color:var(--navy)}
+  .btn-line{border-color:var(--navy);color:var(--navy);background:transparent}
+  .btn-line:hover{color:var(--navy)}
+  .nav .btn{min-height:44px;padding:0 16px;font-size:16px}
+
+  /* hero */
+  .hero{background:var(--navy);color:#fff;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:72px;padding-bottom:72px}
+  .eyebrow{display:inline-block;background:var(--yellow);color:var(--navy);font-weight:600;font-size:15px;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;border-radius:8px;margin-bottom:18px}
+  .hero h1{font-size:clamp(40px,6vw,68px);line-height:1.02;margin:0 0 18px}
+  .hero h1 em{font-style:normal;color:var(--yellow)}
+  .hero p{font-size:20px;color:#DCE2EE;max-width:34ch;margin:0 0 28px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .hero-art{display:flex;justify-content:center}
+
+  /* sections */
+  section{padding:80px 0}
+  .kicker{color:var(--red);font-weight:600;letter-spacing:3px;text-transform:uppercase;font-size:15px;margin:0 0 8px}
+  h2{font-family:'Bowlby One',sans-serif;font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.1;margin:0 0 14px}
+  .lede{color:var(--muted);max-width:56ch;margin:0 0 40px}
+
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--soft);border-radius:18px;padding:26px}
+  .card h3{margin:14px 0 6px;font-size:22px;font-weight:700}
+  .card p{margin:0;color:var(--muted);font-size:17px}
+  .tile{width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:5px solid rgba(0,0,0,.15)}
+  .tile svg{width:30px;height:30px}
+  .t-red{background:var(--red)} .t-yellow{background:var(--yellow)} .t-teal{background:var(--teal)} .t-navy{background:var(--navy);border-color:rgba(255,255,255,.15)}
+
+  .buy{background:var(--soft)}
+  .buy .card{background:#fff;border:2px solid #E3E7EF;display:flex;flex-direction:column;gap:6px}
+  .buy .card .btn{margin-top:18px;align-self:flex-start}
+  .step{font-family:'Bowlby One',sans-serif;font-size:15px;color:#fff;background:var(--navy);width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+
+  .story .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
+  .mini{display:inline-flex;gap:3px}
+  .mini i{font-style:normal;font-family:'Bowlby One',sans-serif;font-size:15px;width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;line-height:1}
+  .mini i:nth-child(1){background:var(--red);color:#fff;transform:rotate(-6deg)}
+  .mini i:nth-child(2){background:var(--yellow);color:var(--navy);transform:rotate(4deg)}
+  .mini i:nth-child(3){background:var(--teal);color:#fff;transform:rotate(-3deg)}
+  .mini i:nth-child(4){background:var(--navy);color:var(--yellow);transform:rotate(7deg);box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+  footer .mini i:nth-child(4){box-shadow:0 0 0 2px var(--yellow)}
+  .hero-art{flex-direction:column;align-items:center;gap:22px}
+  .logo-blocks{display:flex;gap:12px}
+  .blk{width:96px;height:96px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Bowlby One',sans-serif;font-size:54px;border:7px solid rgba(0,0,0,.18)}
+  .blk:nth-child(1){background:var(--red);color:#fff;transform:rotate(-6deg)}
+  .blk:nth-child(2){background:var(--yellow);color:var(--navy);transform:rotate(4deg) translateY(-12px)}
+  .blk:nth-child(3){background:var(--teal);color:#fff;transform:rotate(-3deg)}
+  .blk:nth-child(4){background:#fff;color:var(--navy);transform:rotate(7deg) translateY(-6px)}
+  .logo-word{font-size:52px;line-height:1;color:#fff}
+  .unit-wrap{display:flex;justify-content:center}
+  .unit{width:100%;max-width:380px;height:auto}
+  .story p{color:var(--muted);margin:0 0 14px}
+
+  .contact{background:var(--yellow)}
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .contact .lede{color:var(--navy)}
+  .contact-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+  .contact-list li{background:#fff;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column}
+  .contact-list .label{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .contact-list .val{font-size:20px;font-weight:600;color:var(--navy)}
+  .contact-list a.val{text-decoration:none}
+
+  footer{background:var(--navy);color:#C9D1E2;padding:32px 0;font-size:15px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  footer .brand{color:#fff}
+
+  @media (max-width:900px){
+    .grid4{grid-template-columns:repeat(2,1fr)}
+    .grid3{grid-template-columns:1fr}
+    .hero .wrap,.story .wrap,.contact .wrap{grid-template-columns:1fr}
+    .hero-art{order:-1}
+    .story .unit-wrap{order:-1}
+    .unit{max-width:280px}
+  }
+  @media (max-width:520px){
+    body{font-size:17px}
+    section{padding:56px 0}
+    .hero .wrap{padding-top:40px;padding-bottom:56px}
+    .grid4{grid-template-columns:1fr}
+    .nav .btn{padding:0 12px;font-size:15px}
+    .brand span:not(.mini){font-size:17px}
+    .blk{width:66px;height:66px;font-size:36px;border-width:5px}
+    .logo-blocks{gap:8px}
+    .logo-word{font-size:38px}
+    .cta-row .btn{flex:1 1 100%}
+  }
+
+  /* item cards */
+  .items{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .item{background:#fff;border:2px solid #E3E7EF;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+  .item .ph{display:block;width:100%;aspect-ratio:3/4;padding:0;border:0;background:var(--soft);cursor:zoom-in}
+  .item .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .item .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .item .tag{align-self:flex-start;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--teal);background:#E4F3F2;padding:3px 9px;border-radius:6px}
+  .item h3{margin:2px 0 0;font-size:20px;line-height:1.25;font-weight:700}
+  .item .meta{margin:0;color:var(--muted);font-size:15px}
+  .item .row{margin-top:auto;padding-top:8px;display:flex;align-items:center;gap:10px}
+  .item .price{font-family:'Bowlby One',sans-serif;font-size:26px;color:var(--navy)}
+  .item .ask{font-weight:600;color:var(--muted)}
+  .item .firm{font-size:13px;font-weight:700;letter-spacing:1px;color:#fff;background:var(--red);padding:3px 8px;border-radius:6px}
+  .picks-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+
+  /* inventory view */
+  .inv{padding-top:56px}
+  .filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:14px;align-items:end;background:var(--soft);border-radius:18px;padding:18px;margin-bottom:18px}
+  .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .field label{font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .field input,.field select{font:inherit;font-size:17px;min-height:48px;padding:0 12px;border:2px solid #CBD2DF;border-radius:12px;background:#fff;color:var(--ink);width:100%}
+  .field input:focus,.field select:focus{outline:3px solid var(--yellow);outline-offset:1px;border-color:var(--navy)}
+  .inv-count{color:var(--muted);margin:0 0 18px}
+  .inv-empty{text-align:center;padding:40px 0}
+  .inv-foot{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px;padding:28px;background:var(--yellow);border-radius:18px}
+  .inv-foot p{margin:0;font-weight:600;font-size:20px}
+
+  .lightbox{position:fixed;inset:0;z-index:50;background:rgba(14,20,36,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:12px}
+  .lightbox[hidden]{display:none}
+  .lightbox img{max-width:100%;max-height:82vh;border-radius:12px}
+  .lightbox p{color:#fff;margin:0;font-weight:600;text-align:center}
+  .lb-close{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:12px;border:0;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+  @media (max-width:900px){
+    .items{grid-template-columns:repeat(2,1fr)}
+    .filters{grid-template-columns:1fr 1fr}
+    .f-search{grid-column:1 / -1}
+  }
+  @media (max-width:420px){
+    header .brand span:not(.mini){display:none}
+  }
+  @media (max-width:520px){
+    .items{grid-template-columns:1fr}
+    .f-clear .btn{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Greg's Toy Stash home">
+      <span class="mini" aria-hidden="true"><i>G</i><i>R</i><i>E</i><i>G</i></span>
+      <span>TOY STASH</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a class="btn btn-line" href="#inventory">Inventory</a>
+      <a class="btn btn-red" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div id="home">
+
+  <section class="hero" style="padding:0">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Straight out of storage</div>
+        <h1 class="display">A whole storage unit of toys. <em>Come dig in.</em></h1>
+        <p>Toys, collectibles and finds you forgot you loved, sorted, priced and ready for a new home.</p>
+        <div class="cta-row">
+          <a class="btn btn-yellow" href="#inventory">Browse the inventory</a>
+          <a class="btn btn-line" style="border-color:#fff;color:#fff" href="#contact">Ask about a toy</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="logo-blocks" aria-hidden="true">
+          <div class="blk">G</div><div class="blk">R</div><div class="blk">E</div><div class="blk">G</div>
+        </div>
+        <div class="logo-word display">TOY STASH</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inside">
+    <div class="wrap">
+      <p class="kicker">What's in the unit</p>
+      <h2>Toys for the collector's collection</h2>
+      <p class="lede">A few random picks from the stash. New stuff gets pulled out of the unit all the time, so if you don't see what you're after, ask.</p>
+      <div class="items" id="picks" aria-live="polite"></div>
+      <div class="picks-cta">
+        <a class="btn btn-red" href="#inventory" id="see-all">See the whole inventory</a>
+        <button class="btn btn-line" type="button" id="shuffle">Shuffle</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="buy" id="buy">
+    <div class="wrap">
+      <p class="kicker">How to get your hands on them</p>
+      <h2>Three ways to buy</h2>
+      <p class="lede">Shop online, come see it in person, or take a whole box off Greg's hands.</p>
+      <div class="grid3">
+        <div class="card">
+          <div class="step">1</div>
+          <h3>Shop online</h3>
+          <p>Browse what's listed right now and buy with shipping.</p>
+          <a class="btn btn-red" href="#">Visit the shop <span class="ph" style="margin-left:8px">[SHOP LINK]</span></a>
+        </div>
+        <div class="card">
+          <div class="step">2</div>
+          <h3>Find us in person</h3>
+          <p>Dig through the bins yourself. Next stop: <span class="ph">[MARKET / DATE]</span></p>
+          <a class="btn btn-line" href="#contact">Get the schedule</a>
+        </div>
+        <div class="card">
+          <div class="step">3</div>
+          <h3>Buy a bulk lot</h3>
+          <p>Resellers, collectors and parents: ask about mixed boxes by the lot.</p>
+          <a class="btn btn-line" href="#contact">Ask about lots</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story">
+    <div class="wrap">
+      <div class="unit-wrap">
+        <svg class="unit" viewBox="0 0 240 200" role="img" aria-label="Storage unit with the door rolled up and toys inside">
+          <path d="M16 72 L120 18 L224 72 Z" fill="#1E2A4A"/>
+          <rect x="32" y="70" width="176" height="122" fill="#1E2A4A"/>
+          <rect x="50" y="88" width="140" height="104" fill="#fff"/>
+          <rect x="50" y="88" width="140" height="48" fill="#F6B93B"/>
+          <line x1="50" y1="100" x2="190" y2="100" stroke="#1E2A4A" stroke-width="3"/>
+          <line x1="50" y1="112" x2="190" y2="112" stroke="#1E2A4A" stroke-width="3"/>
+          <line x1="50" y1="124" x2="190" y2="124" stroke="#1E2A4A" stroke-width="3"/>
+          <rect x="110" y="129" width="20" height="5" rx="2" fill="#1E2A4A"/>
+          <rect x="60" y="152" width="38" height="38" rx="5" fill="#D93A2F"/>
+          <text x="79" y="180" text-anchor="middle" font-family="Bowlby One, sans-serif" font-size="26" fill="#fff">G</text>
+          <circle cx="124" cy="171" r="19" fill="#1F8F8A"/>
+          <path d="M106 166 Q124 158 142 166" stroke="#fff" stroke-width="5" fill="none"/>
+          <rect x="152" y="154" width="22" height="12" rx="3" fill="#D93A2F"/>
+          <rect x="144" y="164" width="40" height="18" rx="5" fill="#D93A2F"/>
+          <circle cx="154" cy="184" r="6" fill="#1E2A4A"/>
+          <circle cx="175" cy="184" r="6" fill="#1E2A4A"/>
+          <rect x="16" y="190" width="208" height="6" rx="3" fill="#1E2A4A"/>
+        </svg>
+      </div>
+      <div>
+        <p class="kicker">Meet Greg</p>
+        <h2>Why it's called the stash</h2>
+        <p>Greg has a storage unit packed floor to ceiling with toys. That's the stash, and he's finally opening the door. Every piece gets sorted and priced fairly so it ends up with someone who'll actually enjoy it.</p>
+        <p><span class="ph">[Add a line or two in Greg's own words: how the unit got so full, what he loves finding.]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <p class="kicker" style="color:var(--navy)">Looking for something?</p>
+        <h2>Ask Greg about a toy</h2>
+        <p class="lede">Tell him what you're hunting for. If it's in the unit, he'll dig it out.</p>
+      </div>
+      <ul class="contact-list">
+        <li><span class="label">Text or call</span><a class="val" href="tel:"><span class="ph">[PHONE]</span></a></li>
+        <li><span class="label">Email</span><a class="val" href="mailto:"><span class="ph">[EMAIL]</span></a></li>
+        <li><span class="label">Follow along</span><a class="val" href="#"><span class="ph">[FACEBOOK / INSTAGRAM]</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<section id="inv" class="inv" hidden>
+  <div class="wrap">
+    <p class="kicker">The whole stash</p>
+    <h2>Inventory</h2>
+    <p class="lede">Everything currently out of the unit, bagged and labeled. Tap a photo to see it bigger.</p>
+    <form class="filters" role="search" id="filters">
+      <div class="field f-search">
+        <label for="f-q">Search</label>
+        <input id="f-q" type="search" placeholder="Name, set #, theme…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-theme">Theme</label>
+        <select id="f-theme"><option value="">All themes</option></select>
+      </div>
+      <div class="field">
+        <label for="f-brand">Brand</label>
+        <select id="f-brand"><option value="">All brands</option></select>
+      </div>
+      <div class="field">
+        <label for="f-price">Price</label>
+        <select id="f-price">
+          <option value="">Any price</option>
+          <option value="0-14">Under $15</option>
+          <option value="15-29">$15 – $29</option>
+          <option value="30-9999">$30 and up</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-sort">Sort</label>
+        <select id="f-sort">
+          <option value="">Newest listed</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+      <div class="field f-clear">
+        <button class="btn btn-line" type="reset">Clear</button>
+      </div>
+    </form>
+    <p class="inv-count" id="inv-count" aria-live="polite"></p>
+    <div class="items" id="inv-grid"></div>
+    <div class="inv-empty" id="inv-empty" hidden>
+      <p>Nothing matches that yet. It might still be in a box.</p>
+      <a class="btn btn-red" href="#contact">Ask Greg</a>
+    </div>
+    <div class="inv-foot">
+      <p>See something you want?</p>
+      <a class="btn btn-red" href="#contact">Contact Greg</a>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" type="button" id="lb-close" aria-label="Close photo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand"><span class="mini" aria-hidden="true"><i>G</i><i>R</i><i>E</i><i>G</i></span><span>TOY STASH</span></span>
+    <span>Toys &amp; collectibles · <span class="ph" style="background:#2B3960;color:#FFE7A3;border-color:#F6B93B">[CITY, NJ]</span></span>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var DATA = (window.STASH || []).slice();
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+  function card(it){
+    var meta = [it.set ? 'Set #' + it.set : (it.brand || ''), it.cond].filter(Boolean).join(' · ');
+    var price = it.price == null ? '<span class="ask">Ask for price</span>' : '<span class="price">$' + it.price + '</span>';
+    return '<article class="item">' +
+      '<button class="ph" type="button" data-id="' + it.id + '" aria-label="Enlarge photo of ' + esc(it.name) + '">' +
+        '<img loading="lazy" src="' + esc(it.img) + '" alt="' + esc(it.name) + '"></button>' +
+      '<div class="body">' +
+        (it.theme ? '<span class="tag">' + esc(it.theme) + '</span>' : '') +
+        '<h3>' + esc(it.name) + '</h3>' +
+        (meta ? '<p class="meta">' + esc(meta) + '</p>' : '') +
+        (it.note ? '<p class="meta">' + esc(it.note) + '</p>' : '') +
+        '<div class="row">' + price + (it.firm ? '<span class="firm">FIRM</span>' : '') + '</div>' +
+      '</div></article>';
+  }
+
+  // random picks on the landing page
+  function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function renderPicks(){
+    var pool = DATA.filter(function(it){ return it.price != null; });
+    $('picks').innerHTML = shuffle(pool).slice(0, 6).map(card).join('');
+  }
+  $('see-all').textContent = 'See all ' + DATA.length + ' items';
+  $('shuffle').addEventListener('click', renderPicks);
+  renderPicks();
+
+  // filters
+  function fill(sel, key){
+    var vals = {}; DATA.forEach(function(it){ if (it[key]) vals[it[key]] = (vals[it[key]] || 0) + 1; });
+    Object.keys(vals).sort().forEach(function(v){
+      var o = document.createElement('option'); o.value = v; o.textContent = v + ' (' + vals[v] + ')'; sel.appendChild(o);
+    });
+  }
+  fill($('f-theme'), 'theme'); fill($('f-brand'), 'brand');
+
+  function renderInv(){
+    var q = $('f-q').value.trim().toLowerCase();
+    var th = $('f-theme').value, br = $('f-brand').value, pr = $('f-price').value, so = $('f-sort').value;
+    var lo = 0, hi = Infinity;
+    if (pr){ var p = pr.split('-'); lo = +p[0]; hi = +p[1]; }
+    var list = DATA.filter(function(it){
+      if (th && it.theme !== th) return false;
+      if (br && it.brand !== br) return false;
+      if (pr && (it.price == null || it.price < lo || it.price > hi)) return false;
+      if (q){
+        var hay = [it.name, it.set, it.theme, it.brand, it.cond, it.note].join(' ').toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    var pv = function(it){ return it.price == null ? null : it.price; };
+    if (so === 'low') list.sort(function(a,b){ return (pv(a) ?? 1e9) - (pv(b) ?? 1e9); });
+    if (so === 'high') list.sort(function(a,b){ return (pv(b) ?? -1) - (pv(a) ?? -1); });
+    if (so === 'name') list.sort(function(a,b){ return a.name.localeCompare(b.name); });
+    $('inv-grid').innerHTML = list.map(card).join('');
+    $('inv-count').textContent = 'Showing ' + list.length + ' of ' + DATA.length + ' items';
+    $('inv-empty').hidden = list.length > 0;
+  }
+  ['f-q','f-theme','f-brand','f-price','f-sort'].forEach(function(id){
+    $(id).addEventListener(id === 'f-q' ? 'input' : 'change', renderInv);
+  });
+  $('filters').addEventListener('submit', function(e){ e.preventDefault(); });
+  $('filters').addEventListener('reset', function(){ setTimeout(renderInv, 0); });
+  renderInv();
+
+  // photo lightbox
+  var lb = $('lightbox'), lastFocus = null;
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ph');
+    if (!b) return;
+    var it = DATA.filter(function(x){ return String(x.id) === b.dataset.id; })[0];
+    if (!it) return;
+    lastFocus = b;
+    $('lb-img').src = it.img; $('lb-img').alt = it.name;
+    $('lb-cap').textContent = it.name + (it.price != null ? ' · $' + it.price : '');
+    lb.hidden = false; $('lb-close').focus();
+  });
+  function closeLb(){ lb.hidden = true; if (lastFocus) lastFocus.focus(); }
+  $('lb-close').addEventListener('click', closeLb);
+  lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+  lb.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLb(); });
+
+  // simple hash routing: #inventory shows the inventory, anything else the landing page
+  function route(){
+    var h = location.hash.replace('#','');
+    var inv = h === 'inventory';
+    $('home').hidden = inv; $('inv').hidden = !inv;
+    if (inv){ window.scrollTo(0, 0); return; }
+    var el = h && document.getElementById(h);
+    if (el) el.scrollIntoView(); else if (!h) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body>
+</html>
